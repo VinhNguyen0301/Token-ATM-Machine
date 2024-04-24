@@ -2,6 +2,8 @@
 
 Welcome to the Sino Mar Token project! This README provides an overview of the project, its objectives, roadmap, and other important information.
 
+![Alt text](image.png "SMT Information")
+
 ## Introduction
 
 Sino Mar Token is a decentralized finance (DeFi) project aimed at revolutionizing the maritime industry by leveraging blockchain technology. Our goal is to provide a transparent, efficient, and secure platform for maritime transactions, including vessel financing, cargo tracking, and supply chain management.
