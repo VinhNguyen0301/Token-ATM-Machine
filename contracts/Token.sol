@@ -9,11 +9,11 @@ import "hardhat/console.sol";
 // This is the main building block for smart contracts.
 contract Token {
     // Some string type variables to identify the token.
-    string public name = "My Hardhat Token";
-    string public symbol = "MHT";
+    string public name = "Sino Mar Token";
+    string public symbol = "SMT";
 
     // The fixed amount of tokens, stored in an unsigned integer type variable.
-    uint256 public totalSupply = 1000000;
+    uint256 public totalSupply;
 
     // An address type variable is used to store ethereum accounts.
     address public owner;
@@ -24,15 +24,16 @@ contract Token {
     // The Transfer event helps off-chain applications understand
     // what happens within your contract.
     event Transfer(address indexed _from, address indexed _to, uint256 _value);
-
+    event Burn(address indexed _from, uint256 _value);
     /**
      * Contract initialization.
      */
     constructor() {
         // The totalSupply is assigned to the transaction sender, which is the
         // account that is deploying the contract.
-        balances[msg.sender] = totalSupply;
+        totalSupply = 1000000;
         owner = msg.sender;
+        balances[msg.sender] = totalSupply;
     }
 
     /**
@@ -70,5 +71,17 @@ contract Token {
      */
     function balanceOf(address account) external view returns (uint256) {
         return balances[account];
+    }
+
+    // Can burn
+    function burn(uint256 amount) external {
+        require(balances[msg.sender] >= amount, "Not enough tokens to burn");
+
+        console.log("Burning %s tokens from %s", amount, msg.sender);
+
+        balances[msg.sender] -= amount;
+        totalSupply -= amount;
+
+        emit Burn(msg.sender, amount);
     }
 }

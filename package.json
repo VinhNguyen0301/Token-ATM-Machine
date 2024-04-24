@@ -18,8 +18,10 @@
   "homepage": "https://github.com/VinhNguyen0301/solidity-smc#readme",
   "devDependencies": {
     "@nomicfoundation/hardhat-toolbox": "^5.0.0",
+    "dotenv": "^16.4.5",
     "hardhat": "^2.22.3",
-    "openzeppelin-solidity": "^3.4.2"
+    "openzeppelin-solidity": "^3.4.2",
+    "web3": "^4.8.0"
   },
   "dependencies": {
     "@openzeppelin/contracts": "^5.0.2"
