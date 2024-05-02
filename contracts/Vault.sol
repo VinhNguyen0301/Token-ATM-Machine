@@ -1,10 +1,10 @@
 //SPDX-License-Identifier: UNLICENSED
-pragma solidity <=0.8.10;
+pragma solidity ^0.8.20;
 
-import "openzeppelin-solidity/contracts/token/ERC20/utils/SafeERC20.sol";
-import "openzeppelin-solidity/contracts/token/ERC20/IERC20.sol";
-import "openzeppelin-solidity/contracts/access/Ownable.sol";
-import "openzeppelin-solidity/contracts/access/AccessControlEnumerable.sol";
+import "@openzeppelin/contracts/token/ERC20/utils/SafeERC20.sol";
+import "@openzeppelin/contracts/token/ERC20/IERC20.sol";
+import "@openzeppelin/contracts/access/Ownable.sol";
+import "@openzeppelin/contracts/access/extensions/AccessControlEnumerable.sol";
 
 contract Vault is Ownable, AccessControlEnumerable {
     IERC20 private token;
@@ -12,7 +12,6 @@ contract Vault is Ownable, AccessControlEnumerable {
     bool public withdrawEnable;
     bytes32 public constant WITHDRAWER_ROLE = keccak256("WITHDRAWER_ROLE");
 
-    // widhdraw from vault flag
     function setWithdrawEnable(bool _isEnable) public onlyOwner {
         withdrawEnable = _isEnable;
     }
@@ -22,8 +21,8 @@ contract Vault is Ownable, AccessControlEnumerable {
     function setToken(IERC20 _token) public onlyOwner {
         token = _token;
     }
-    constructor() {
-        _setupRole(DEFAULT_ADMIN_ROLE, _msgSender());
+    constructor(address initialOwner) Ownable(initialOwner) {
+        grantRole(DEFAULT_ADMIN_ROLE, _msgSender());
     }
     function withdraw(uint256 _amount, address _to) external onlyWithdrawer {
         require(withdrawEnable, "Withdraw is not available");
